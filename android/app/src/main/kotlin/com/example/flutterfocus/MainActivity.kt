@@ -2,7 +2,8 @@ package com.example.flutterfocus
 
 import android.content.Context
 import android.os.Bundle
-import com.stripe.android.view.CardInputWidget
+import android.text.InputType
+import android.widget.EditText
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
@@ -15,20 +16,23 @@ class MainActivity: FlutterActivity() {
 
         flutterEngine!!.platformViewsController
                 .registry
-                .registerViewFactory("flutter.stripe/card_field", StripeSdkCardPlatformViewFactory())
+                .registerViewFactory("text_field_error", TextFieldPlatformViewFactory())
     }
 }
 
-class StripeSdkCardPlatformViewFactory : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
+class TextFieldPlatformViewFactory : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
     override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
         context.setTheme(R.style.Theme_AppCompat_Light)
-        return StripeSdkCardPlatformView(CardInputWidget(context))
+        val editText = EditText(context)
+        editText.inputType = InputType.TYPE_CLASS_NUMBER // This does not work
+        // editText.inputType = InputType.TYPE_CLASS_TEXT // This works
+        return TextFieldPlatformView(editText)
     }
 }
 
 
-class StripeSdkCardPlatformView(private val view: CardInputWidget) : PlatformView {
+class TextFieldPlatformView(private val view: EditText) : PlatformView {
 
     override fun getView() = view
     override fun dispose() {}

@@ -34,8 +34,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   MethodChannel methodChannel;
 
-  bool _hybrid = false;
-
   @override
   void initState() {
     super.initState();
@@ -43,8 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const viewType = 'flutter.stripe/card_field';
-
+    const viewType = 'text_field_error';
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -52,17 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            //TextField(),
+            TextField(),
             Container(
               height: 100,
-              child: !_hybrid
-                  ? AndroidView(
-                      hitTestBehavior: PlatformViewHitTestBehavior.opaque,
-                      viewType: viewType,
-                      creationParamsCodec: const StandardMessageCodec(),
-                      onPlatformViewCreated: (viewId) {},
-                    )
-                  : PlatformViewLink(
+              child: PlatformViewLink(
                       viewType: viewType,
                       surfaceFactory: (context, controller) =>
                           AndroidViewSurface(
@@ -89,13 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _hybrid = !_hybrid;
-          });
-        },
-      ),
+      
     );
   }
 }
