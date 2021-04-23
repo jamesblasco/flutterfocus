@@ -49,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            TextField(),
+            TextField(
+              decoration: InputDecoration(hintText:"Flutter TextFild")
+            ),
             Container(
               height: 100,
               child: PlatformViewLink(

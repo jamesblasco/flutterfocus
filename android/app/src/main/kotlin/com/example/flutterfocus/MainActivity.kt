@@ -25,6 +25,7 @@ class TextFieldPlatformViewFactory : PlatformViewFactory(StandardMessageCodec.IN
     override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
         context.setTheme(R.style.Theme_AppCompat_Light)
         val editText = EditText(context)
+        editText.hint = "Native view"
         editText.inputType = InputType.TYPE_CLASS_NUMBER // This does not work
         // editText.inputType = InputType.TYPE_CLASS_TEXT // This works
         return TextFieldPlatformView(editText)
